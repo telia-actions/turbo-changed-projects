@@ -9978,7 +9978,7 @@ const core_1 = __nccwpck_require__(2186);
 const lib_1 = __nccwpck_require__(6791);
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
     const isMain = (0, lib_1.isMainBranch)();
-    const eventContext = JSON.parse((0, core_1.getInput)('github_event'));
+    const eventContext = JSON.parse((0, core_1.getInput)('githubEvent'));
     yield getChangedPackages(isMain ? eventContext.before : 'origin/main');
 });
 exports.run = run;

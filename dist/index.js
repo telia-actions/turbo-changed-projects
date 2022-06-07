@@ -9975,11 +9975,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
 const core_1 = __nccwpck_require__(2186);
+const github_1 = __nccwpck_require__(5438);
 const lib_1 = __nccwpck_require__(6791);
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
     const isMain = (0, lib_1.isMainBranch)();
     const eventInput = (0, core_1.getInput)('githubEvent');
     (0, core_1.info)(eventInput);
+    (0, core_1.info)(JSON.stringify(github_1.context, undefined, 2));
     const eventContext = JSON.parse(eventInput);
     yield getChangedPackages(isMain ? eventContext.before : 'origin/main');
 });
@@ -9987,6 +9989,9 @@ exports.run = run;
 function getChangedPackages(diffTarget) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, core_1.info)(diffTarget);
+        if (!diffTarget) {
+            (0, core_1.setFailed)(`No base sha found`);
+        }
         const { data, error } = yield (0, lib_1.executeCommand)(`npx turbo run build --filter=...[${diffTarget}] --dry=json`);
         if (error) {
             (0, core_1.setFailed)(error);

@@ -5,9 +5,9 @@ export const isMainBranch = (): boolean => {
   return context.ref === 'refs/heads/main';
 };
 
-export const getMainDiffTarget = (): string => {
-  info(`${process.env.GITHUB_EVENT_PATH}`)
-  const event = JSON.parse(process.env.GITHUB_EVENT_PATH ?? '{}');
+export const getMainDiffTarget = (githubEvent: string): string => {
+  info(githubEvent)
+  const event = JSON.parse(githubEvent ?? '{}');
   if (!event) {
     setFailed('Could not parse GITHUB_EVENT_PATH');
   }

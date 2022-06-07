@@ -1,0 +1,8 @@
+name: Turbo changed projects
+description: Detect which turbo projects has changes
+outputs:
+  changedProjects:
+    description: List of changed project.
+runs:
+  using: node16
+  main: dist/index.js

@@ -1,16 +1,44 @@
-import { info, setFailed } from "@actions/core";
-import { context } from "@actions/github"
+import { context } from '@actions/github';
+import exec from '@actions/exec';
+import { promises as fsp } from 'fs';
+import { setFailed } from '@actions/core';
 
 export const isMainBranch = (): boolean => {
-  return context.ref === 'refs/heads/main';
+  return (
+    context.ref === 'refs/heads/main' || context.ref === 'refs/heads/master'
+  );
 };
 
-export const getMainDiffTarget = (githubEvent: string): string => {
-  info(githubEvent)
-  const event = JSON.parse(githubEvent ?? '{}');
-  if (!event) {
-    setFailed('Could not parse GITHUB_EVENT_PATH');
+export async function getEventContext() {
+  try {
+    const data = await fsp.readFile(
+      process.env.GITHUB_EVENT_PATH ?? '',
+      'utf-8',
+    );
+    return JSON.parse(data);
+  } catch (e: any) {
+    setFailed(`Could not read data from GITHUB_EVENT_PATH: ${e.message}`);
   }
+}
 
-  return event.before;
-};
+export async function executeCommand(
+  command: string,
+  args?: string[],
+): Promise<{ data: string; error: any }> {
+  let output = '';
+  let error = '';
+
+  const options = {
+    listeners: {
+      stdout: (data: Buffer) => {
+        output += data.toString();
+      },
+      stderr: (data: Buffer) => {
+        error += data.toString();
+      },
+    },
+  };
+
+  await exec.exec(command, args, options);
+  return { data: output, error };
+}

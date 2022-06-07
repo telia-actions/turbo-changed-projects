@@ -1,20 +1,22 @@
-import { info } from '@actions/core';
-import { getMainDiffTarget, isMainBranch } from './lib';
-import { promises as fsp } from 'fs';
+import { info, setFailed } from '@actions/core';
+import { executeCommand, getEventContext, isMainBranch } from './lib';
 
-export const run = async (): void => {
+export const run = async (): Promise<void> => {
   const isMain = isMainBranch();
-  const githubEvent = await fsp.readFile(
-    process.env.GITHUB_EVENT_PATH ?? '',
-    'utf8',
-  );
+  const eventContext = await getEventContext();
 
-  if (isMain) {
-    runForMain(githubEvent);
-  }
+  await getChangedPackages(isMain ? eventContext.before : 'origin/main');
 };
 
-function runForMain(githubEvent: string) {
-  const mainDiffTarget = getMainDiffTarget(githubEvent);
-  info(mainDiffTarget);
+async function getChangedPackages(diffTarget: string) {
+  info(diffTarget);
+  const { data, error } = await executeCommand(
+    `npx turbo run build --filter=...[${diffTarget}] --dry=json`,
+  );
+
+  if (error) {
+    setFailed(error);
+  }
+
+  info(data);
 }

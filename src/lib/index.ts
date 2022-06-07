@@ -1,1 +1,1 @@
-export * from './github-context'
+export * from './github-context';

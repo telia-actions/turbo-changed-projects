@@ -1,4 +1,4 @@
-import { debug } from '@actions/core';
+import { info } from '@actions/core';
 import { getMainDiffTarget, isMainBranch } from './lib';
 
 export const run = (): void => {
@@ -11,5 +11,5 @@ export const run = (): void => {
 
 function runForMain() {
   const mainDiffTarget = getMainDiffTarget();
-  debug(mainDiffTarget);
+  info(mainDiffTarget);
 }

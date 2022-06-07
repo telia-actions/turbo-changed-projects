@@ -10016,8 +10016,9 @@ const github_1 = __nccwpck_require__(5438);
 const exec_1 = __nccwpck_require__(1514);
 const fs_1 = __nccwpck_require__(7147);
 const core_1 = __nccwpck_require__(2186);
+const console_1 = __nccwpck_require__(6206);
 const isMainBranch = () => {
-    return (github_1.context.ref === 'refs/heads/main' || github_1.context.ref === 'refs/heads/master');
+    return github_1.context.ref === 'refs/heads/master';
 };
 exports.isMainBranch = isMainBranch;
 function getEventContext() {
@@ -10025,6 +10026,7 @@ function getEventContext() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const data = yield fs_1.promises.readFile((_a = process.env.GITHUB_EVENT_PATH) !== null && _a !== void 0 ? _a : '', 'utf-8');
+            (0, console_1.info)(`event data: ${data}`);
             return JSON.parse(data);
         }
         catch (e) {
@@ -10098,6 +10100,14 @@ module.exports = require("assert");
 
 "use strict";
 module.exports = require("child_process");
+
+/***/ }),
+
+/***/ 6206:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("console");
 
 /***/ }),
 

@@ -2,11 +2,10 @@ import { context } from '@actions/github';
 import { exec } from '@actions/exec';
 import { promises as fsp } from 'fs';
 import { setFailed } from '@actions/core';
+import { info } from 'console';
 
 export const isMainBranch = (): boolean => {
-  return (
-    context.ref === 'refs/heads/main' || context.ref === 'refs/heads/master'
-  );
+  return context.ref === 'refs/heads/master';
 };
 
 export async function getEventContext() {
@@ -15,6 +14,7 @@ export async function getEventContext() {
       process.env.GITHUB_EVENT_PATH ?? '',
       'utf-8',
     );
+    info(`event data: ${data}`);
     return JSON.parse(data);
   } catch (e: any) {
     setFailed(`Could not read data from GITHUB_EVENT_PATH: ${e.message}`);

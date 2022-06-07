@@ -10010,13 +10010,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.executeCommand = exports.getEventContext = exports.isMainBranch = void 0;
 const github_1 = __nccwpck_require__(5438);
-const exec_1 = __importDefault(__nccwpck_require__(1514));
+const exec_1 = __nccwpck_require__(1514);
 const fs_1 = __nccwpck_require__(7147);
 const core_1 = __nccwpck_require__(2186);
 const isMainBranch = () => {
@@ -10050,7 +10047,7 @@ function executeCommand(command, args) {
                 },
             },
         };
-        yield exec_1.default.exec(command, args, options);
+        yield (0, exec_1.exec)(command, args, options);
         return { data: output, error };
     });
 }

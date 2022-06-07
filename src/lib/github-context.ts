@@ -1,5 +1,5 @@
 import { context } from '@actions/github';
-import exec from '@actions/exec';
+import { exec } from '@actions/exec';
 import { promises as fsp } from 'fs';
 import { setFailed } from '@actions/core';
 
@@ -39,6 +39,6 @@ export async function executeCommand(
     },
   };
 
-  await exec.exec(command, args, options);
+  await exec(command, args, options);
   return { data: output, error };
 }

@@ -4,6 +4,7 @@ import { executeCommand, isMainBranch } from './lib';
 export const run = async (): Promise<void> => {
   const isMain = isMainBranch();
   const eventContext = JSON.parse(getInput('githubEvent'));
+  info(eventContext);
 
   await getChangedPackages(isMain ? eventContext.before : 'origin/main');
 };

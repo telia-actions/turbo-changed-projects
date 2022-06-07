@@ -2,7 +2,7 @@ name: Turbo changed projects
 description: Detect which turbo projects has changes
 inputs:
   githubEvent:
-    description: Github event variable ${{ github.event }}
+    description: Github event variable github.event
     required: true
 outputs:
   changedProjects:

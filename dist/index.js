@@ -8709,7 +8709,7 @@ const run = () => {
 exports.run = run;
 function runForMain() {
     const mainDiffTarget = (0, lib_1.getMainDiffTarget)();
-    (0, core_1.debug)(mainDiffTarget);
+    (0, core_1.info)(mainDiffTarget);
 }
 
 
@@ -8730,6 +8730,7 @@ const isMainBranch = () => {
 exports.isMainBranch = isMainBranch;
 const getMainDiffTarget = () => {
     var _a;
+    (0, core_1.info)(`${process.env.GITHUB_EVENT_PATH}`);
     const event = JSON.parse((_a = process.env.GITHUB_EVENT_PATH) !== null && _a !== void 0 ? _a : '{}');
     if (!event) {
         (0, core_1.setFailed)('Could not parse GITHUB_EVENT_PATH');

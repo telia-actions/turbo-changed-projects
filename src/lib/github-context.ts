@@ -6,8 +6,8 @@ export const isMainBranch = (): boolean => {
 };
 
 export const getMainDiffTarget = (): string => {
-  const event = JSON.parse(process.env.GITHUB_EVENT_PATH ?? '{}');
   info(`${process.env.GITHUB_EVENT_PATH}`)
+  const event = JSON.parse(process.env.GITHUB_EVENT_PATH ?? '{}');
   if (!event) {
     setFailed('Could not parse GITHUB_EVENT_PATH');
   }

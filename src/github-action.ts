@@ -1,9 +1,9 @@
-import { info, setFailed } from '@actions/core';
-import { executeCommand, getEventContext, isMainBranch } from './lib';
+import { getInput, info, setFailed } from '@actions/core';
+import { executeCommand, isMainBranch } from './lib';
 
 export const run = async (): Promise<void> => {
   const isMain = isMainBranch();
-  const eventContext = await getEventContext();
+  const eventContext = JSON.parse(getInput('github_event'));
 
   await getChangedPackages(isMain ? eventContext.before : 'origin/main');
 };

@@ -13,12 +13,12 @@ const mockPath = path.join(__dirname, '/../__mocks__');
 describe('github-context', () => {
   describe('isMainBranch', () => {
     it('should return true when ref is master', () => {
-      context.ref = 'refs/heads/master';
+      context.ref = 'refs/heads/main';
       expect(isMainBranch()).toBeTruthy();
     });
 
     it('should return false when ref is something else', () => {
-      context.ref = 'refs/heads/some-branch';
+      context.ref = 'refs/heads/master';
       expect(isMainBranch()).toBeFalsy();
       context.ref = '';
       expect(isMainBranch()).toBeFalsy();

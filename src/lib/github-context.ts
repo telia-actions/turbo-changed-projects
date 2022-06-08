@@ -5,7 +5,7 @@ import { setFailed } from '@actions/core';
 import { info } from 'console';
 
 export const isMainBranch = (): boolean => {
-  return context.ref === 'refs/heads/master';
+  return context.ref === 'refs/heads/main';
 };
 
 export async function getEventContext() {

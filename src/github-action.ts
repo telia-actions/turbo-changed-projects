@@ -11,7 +11,6 @@ export const run = async (): Promise<void> => {
 
   // TODO: It doesn't handle workflow_dispatch for main branch at the moment since it doesn't expose
   // github.event.before so we don't know what to compare with.
-
   const changedPackages = await getChangedPackages(
     isMain && context.eventName !== 'workflow_dispatch'
       ? eventContext.before

@@ -10058,7 +10058,7 @@ const fs_1 = __nccwpck_require__(7147);
 const core_1 = __nccwpck_require__(2186);
 const console_1 = __nccwpck_require__(6206);
 const isMainBranch = () => {
-    return github_1.context.ref === 'refs/heads/master';
+    return github_1.context.ref === 'refs/heads/main';
 };
 exports.isMainBranch = isMainBranch;
 function getEventContext() {

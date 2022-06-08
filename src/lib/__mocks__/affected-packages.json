@@ -1,0 +1,81 @@
+{
+  "packages": [
+    "//",
+    "@toca/b2b-order-flow",
+    "@toca/config"
+  ],
+  "tasks": [
+    {
+      "taskId": "@toca/config#build",
+      "task": "build",
+      "package": "@toca/config",
+      "hash": "86fa4d468cdd9c3c",
+      "command": "\u003cNONEXISTENT\u003e",
+      "outputs": [
+        "dist/**",
+        "build/**",
+        ".next/**"
+      ],
+      "logFile": "packages/config/.turbo/turbo-build.log",
+      "directory": "packages/config",
+      "dependencies": [],
+      "dependents": [
+        "@toca/b2b-order-flow#build",
+        "@toca/b2x-auth#build",
+        "@toca/b2x-http-client#build",
+        "@toca/b2x-layout#build",
+        "@toca/mock-proxy-server#build",
+        "@toca/ui#build",
+        "generator#build"
+      ]
+    },
+    {
+      "taskId": "@toca/b2b-order-flow#build",
+      "task": "build",
+      "package": "@toca/b2b-order-flow",
+      "hash": "706ff8979a7bb33f",
+      "command": "next build",
+      "outputs": [
+        "dist/**",
+        "build/**",
+        ".next/**"
+      ],
+      "logFile": "apps/b2b-order-flow/.turbo/turbo-build.log",
+      "directory": "apps/b2b-order-flow",
+      "dependencies": [
+        "@toca/tsconfig#build",
+        "@toca/config#build",
+        "@toca/b2x-http-client#build",
+        "@toca/b2x-auth#build",
+        "@toca/next-stack#build",
+        "@toca/ui#build",
+        "@toca/b2x-layout#build"
+      ],
+      "dependents": []
+    },
+    {
+      "taskId": "@toca/b2x-login#build",
+      "task": "build",
+      "package": "@toca/b2x-login",
+      "hash": "706ff8979a7bb33f",
+      "command": "next build",
+      "outputs": [
+        "dist/**",
+        "build/**",
+        ".next/**"
+      ],
+      "logFile": "apps/b2x-login/.turbo/turbo-build.log",
+      "directory": "apps/b2x-login",
+      "dependencies": [
+        "@toca/tsconfig#build",
+        "@toca/config#build",
+        "@toca/b2x-http-client#build",
+        "@toca/b2x-auth#build",
+        "@toca/next-stack#build",
+        "@toca/ui#build",
+        "@toca/b2x-layout#build"
+      ],
+      "dependents": []
+    }
+  ]
+}

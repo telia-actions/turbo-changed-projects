@@ -1,5 +1,5 @@
 {
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["prettier", "@typescript-eslint"],
   "extends": ["plugin:github/recommended"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -8,13 +8,15 @@
     "project": "./tsconfig.json"
   },
   "rules": {
+    "prettier/prettier": "error",
     "eslint-comments/no-use": "off",
     "import/no-namespace": "off",
     "no-undef": "off",
     "no-unused-vars": "off",
     "camelcase": "off",
     "i18n-text/no-en": "off",
-    "@typescript-eslint/no-unused-vars": "error"
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-console": "error"
   },
   "env": {
     "node": true,

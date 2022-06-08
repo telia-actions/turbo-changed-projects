@@ -14,7 +14,9 @@ export async function getEventContext() {
       process.env.GITHUB_EVENT_PATH ?? '',
       'utf-8',
     );
+
     info(`event data: ${data}`);
+
     return JSON.parse(data);
   } catch (e: any) {
     setFailed(`Could not read data from GITHUB_EVENT_PATH: ${e.message}`);

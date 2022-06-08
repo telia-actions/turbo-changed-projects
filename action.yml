@@ -1,9 +1,13 @@
 name: Turbo changed projects
 description: Detect which turbo projects has changes
 inputs:
-  githubEvent:
-    description: Github event variable github.event
-    required: true
+  filterPath:
+    description: |
+      Include filterPath to the changed packages filter. Can be in any of these formats:
+        'apps/' - single path
+        'apps/,packages/' - comma separated list
+        'packages/some-package' - will only grab packages/some-package from packages/
+    required: false
 outputs:
   changedProjects:
     description: List of changed project.

@@ -9977,28 +9977,61 @@ exports.run = void 0;
 const core_1 = __nccwpck_require__(2186);
 const github_1 = __nccwpck_require__(5438);
 const lib_1 = __nccwpck_require__(6791);
+const filter_affected_packages_1 = __nccwpck_require__(666);
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
     const isMain = (0, lib_1.isMainBranch)();
-    const eventInput = (0, core_1.getInput)('githubEvent');
-    (0, core_1.info)(eventInput);
-    (0, core_1.info)(JSON.stringify(github_1.context, undefined, 2));
-    const eventContext = JSON.parse(eventInput);
-    yield getChangedPackages(isMain ? eventContext.before : 'origin/main');
+    const eventContext = yield (0, lib_1.getEventContext)();
+    (0, core_1.info)(JSON.stringify(eventContext, undefined, 2));
+    // TODO: It doesn't handle workflow_dispatch for main branch at the moment since it doesn't expose
+    // github.event.before so we don't know what to compare with.
+    const changedPackages = yield getChangedPackages(isMain && github_1.context.eventName !== 'workflow_dispatch'
+        ? eventContext.before
+        : 'origin/main');
+    (0, core_1.info)(JSON.stringify(changedPackages));
+    (0, core_1.setOutput)('changedPackages', changedPackages);
 });
 exports.run = run;
 function getChangedPackages(diffTarget) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, core_1.info)(diffTarget);
         if (!diffTarget) {
+            // this only happens when the branch is main and eventContext.before is undefined since
+            // for pull requests the diffTarget is hard coded to 'origin/main'
             (0, core_1.setFailed)(`No base sha found`);
         }
         const { data, error } = yield (0, lib_1.executeCommand)(`npx turbo run build --filter=...[${diffTarget}] --dry=json`);
         if (error) {
             (0, core_1.setFailed)(error);
         }
-        (0, core_1.info)(data);
+        return (0, filter_affected_packages_1.filterAffectedPackages)(JSON.parse(data), (0, core_1.getInput)('filterPath'));
     });
 }
+
+
+/***/ }),
+
+/***/ 666:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.filterAffectedPackages = exports.IGNORE_LIST = void 0;
+exports.IGNORE_LIST = ['//'];
+function filterAffectedPackages(affectedPackages, filterPath) {
+    return affectedPackages.tasks
+        .filter((task) => !exports.IGNORE_LIST.includes(task.package) &&
+        task.directory.includes(filterPath !== null && filterPath !== void 0 ? filterPath : ''))
+        .map((task) => {
+        var _a;
+        return ({
+            packageName: task.package,
+            directory: task.directory,
+            dockerRepository: (_a = task.directory.split('/').pop()) !== null && _a !== void 0 ? _a : '',
+        });
+    });
+}
+exports.filterAffectedPackages = filterAffectedPackages;
 
 
 /***/ }),

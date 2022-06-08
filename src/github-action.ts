@@ -17,9 +17,9 @@ export const run = async (): Promise<void> => {
       : 'origin/main',
   );
 
-  info(JSON.stringify(changedPackages));
+  info(`Changed projects: ${JSON.stringify(changedPackages)}`);
 
-  setOutput('changedPackages', changedPackages);
+  setOutput('changedProjects', changedPackages);
 };
 
 async function getChangedPackages(diffTarget: string) {

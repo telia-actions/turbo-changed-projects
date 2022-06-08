@@ -1,8 +1,7 @@
 import { context } from '@actions/github';
 import { exec } from '@actions/exec';
 import { promises as fsp } from 'fs';
-import { setFailed } from '@actions/core';
-import { info } from 'console';
+import { debug, setFailed } from '@actions/core';
 
 export const isMainBranch = (): boolean => {
   return context.ref === 'refs/heads/main';
@@ -15,7 +14,7 @@ export async function getEventContext() {
       'utf-8',
     );
 
-    info(`event data: ${data}`);
+    debug(`event data: ${data}`);
 
     return JSON.parse(data);
   } catch (e: any) {

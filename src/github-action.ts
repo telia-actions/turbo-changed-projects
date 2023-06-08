@@ -30,7 +30,7 @@ async function getChangedPackages(diffTarget: string) {
   }
 
   const { data, error } = await executeCommand(
-    `npx turbo run build --filter=...[${diffTarget}] --dry=json`,
+    `npx --yes turbo run build --filter=...[${diffTarget}] --dry=json`,
   );
 
   if (error) {

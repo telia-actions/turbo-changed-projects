@@ -1,5 +1,5 @@
 name: Turbo changed projects
-description: Detect which turbo projects has changes
+description: Get a list of projects that have code changes
 inputs:
   filterPath:
     description: |
@@ -12,5 +12,7 @@ outputs:
   changedProjects:
     description: List of changed projects.
 runs:
-  using: node16
+  using: node18
   main: dist/index.js
+  env:
+    TURBO_TELEMETRY_MESSAGE_DISABLED: '1'

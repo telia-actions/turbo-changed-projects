@@ -15,4 +15,4 @@ runs:
   using: node18
   main: dist/index.js
   env:
-    TURBO_TELEMETRY_MESSAGE_DISABLED: '1'
+    TURBO_TELEMETRY_MESSAGE_DISABLED: 1

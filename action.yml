@@ -12,7 +12,5 @@ outputs:
   changedProjects:
     description: List of changed projects.
 runs:
-  using: node18
+  using: node20
   main: dist/index.js
-  env:
-    TURBO_TELEMETRY_MESSAGE_DISABLED: 1

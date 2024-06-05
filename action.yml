@@ -8,6 +8,9 @@ inputs:
         'apps/,packages/' - comma separated list
         'packages/some-package' - will only grab packages/some-package from packages/
     required: false
+  turboVersion:
+    description: Specify turbo version. Default value is 'latest'
+    required: false
 outputs:
   changedProjects:
     description: List of changed projects.

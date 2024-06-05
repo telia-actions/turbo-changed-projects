@@ -10733,6 +10733,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.run = run;
 function getChangedPackages(diffTarget) {
+    var _a;
     return __awaiter(this, void 0, void 0, function* () {
         (0, core_1.debug)(diffTarget);
         if (!diffTarget) {
@@ -10740,7 +10741,7 @@ function getChangedPackages(diffTarget) {
             // for pull requests the diffTarget is hard coded to 'origin/main'
             (0, core_1.setFailed)(`No base sha found`);
         }
-        const { data, error } = yield (0, lib_1.executeCommand)(`npx --yes turbo run build --filter=...[${diffTarget}] --dry=json`);
+        const { data, error } = yield (0, lib_1.executeCommand)(`npx --yes turbo@${(_a = (0, core_1.getInput)('turboVersion')) !== null && _a !== void 0 ? _a : 'latest'} run build --filter=...[${diffTarget}] --dry=json`);
         if (error) {
             (0, core_1.setFailed)(error);
         }

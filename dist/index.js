@@ -10741,7 +10741,7 @@ function getChangedPackages(diffTarget) {
             // for pull requests the diffTarget is hard coded to 'origin/main'
             (0, core_1.setFailed)(`No base sha found`);
         }
-        const { data, error } = yield (0, lib_1.executeCommand)(`TURBO_GLOBAL_WARNING_DISABLED=1 npx --yes turbo@${(_a = (0, core_1.getInput)('turboVersion')) !== null && _a !== void 0 ? _a : 'latest'} run build --filter=...[${diffTarget}] --dry=json`);
+        const { data, error } = yield (0, lib_1.executeCommand)(`npx --yes turbo@${(_a = (0, core_1.getInput)('turboVersion')) !== null && _a !== void 0 ? _a : 'latest'} run build --filter=...[${diffTarget}] --dry=json`);
         if (error) {
             (0, core_1.setFailed)(error);
         }
@@ -10821,6 +10821,9 @@ function executeCommand(command, args) {
         let output = '';
         let error = '';
         const options = {
+            env: {
+                TURBO_GLOBAL_WARNING_DISABLED: '1',
+            },
             listeners: {
                 stdout: (data) => {
                     output += data.toString();

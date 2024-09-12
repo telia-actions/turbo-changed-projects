@@ -32,6 +32,7 @@ export async function executeCommand(
   const options: ExecOptions = {
     env: {
       TURBO_GLOBAL_WARNING_DISABLED: '1',
+      ...process.env,
     },
     listeners: {
       stdout: (data: Buffer) => {

@@ -30,7 +30,7 @@ async function getChangedPackages(diffTarget: string) {
   }
 
   const { data, error } = await executeCommand(
-    `npx --yes turbo@${
+    `TURBO_GLOBAL_WARNING_DISABLED=1 npx --yes turbo@${
       getInput('turboVersion') ?? 'latest'
     } run build --filter=...[${diffTarget}] --dry=json`,
   );

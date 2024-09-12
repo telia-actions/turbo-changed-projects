@@ -1,5 +1,5 @@
 import { context } from '@actions/github';
-import { exec, ExecOptions } from '@actions/exec';
+import { exec } from '@actions/exec';
 import { promises as fsp } from 'fs';
 import { debug, setFailed } from '@actions/core';
 
@@ -29,11 +29,7 @@ export async function executeCommand(
   let output = '';
   let error = '';
 
-  const options: ExecOptions = {
-    env: {
-      TURBO_GLOBAL_WARNING_DISABLED: '1',
-      ...process.env,
-    },
+  const options = {
     listeners: {
       stdout: (data: Buffer) => {
         output += data.toString();

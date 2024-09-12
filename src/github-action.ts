@@ -1,4 +1,11 @@
-import { debug, getInput, info, setFailed, setOutput } from '@actions/core';
+import {
+  debug,
+  getInput,
+  info,
+  setFailed,
+  setOutput,
+  exportVariable,
+} from '@actions/core';
 import { context } from '@actions/github';
 import { executeCommand, getEventContext, isMainBranch } from './lib';
 import { filterAffectedPackages } from './lib/filter-affected-packages';
@@ -6,6 +13,7 @@ import { filterAffectedPackages } from './lib/filter-affected-packages';
 export const run = async (): Promise<void> => {
   const isMain = isMainBranch();
   const eventContext = await getEventContext();
+  exportVariable('TURBO_GLOBAL_WARNING_DISABLED', 1);
 
   // TODO: It doesn't handle workflow_dispatch for main branch at the moment since it doesn't expose
   // github.event.before so we don't know what to compare with.

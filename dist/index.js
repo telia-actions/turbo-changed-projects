@@ -10723,6 +10723,7 @@ const filter_affected_packages_1 = __nccwpck_require__(666);
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
     const isMain = (0, lib_1.isMainBranch)();
     const eventContext = yield (0, lib_1.getEventContext)();
+    (0, core_1.exportVariable)('TURBO_GLOBAL_WARNING_DISABLED', 1);
     // TODO: It doesn't handle workflow_dispatch for main branch at the moment since it doesn't expose
     // github.event.before so we don't know what to compare with.
     const changedPackages = yield getChangedPackages(isMain && github_1.context.eventName !== 'workflow_dispatch'
@@ -10821,9 +10822,6 @@ function executeCommand(command, args) {
         let output = '';
         let error = '';
         const options = {
-            env: {
-                TURBO_GLOBAL_WARNING_DISABLED: '1',
-            },
             listeners: {
                 stdout: (data) => {
                     output += data.toString();

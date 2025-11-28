@@ -15,5 +15,5 @@ outputs:
   changedProjects:
     description: List of changed projects.
 runs:
-  using: node20
+  using: node22
   main: dist/index.js

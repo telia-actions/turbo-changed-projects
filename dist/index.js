@@ -30598,6 +30598,7 @@ function executeCommand(command, args) {
         let output = '';
         let error = '';
         const options = {
+            cwd: process.env.GITHUB_WORKSPACE,
             listeners: {
                 stdout: (data) => {
                     output += data.toString();

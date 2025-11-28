@@ -1,5 +1,5 @@
 import { context } from '@actions/github';
-import { exec } from '@actions/exec';
+import { type ExecOptions, exec } from '@actions/exec';
 import { promises as fsp } from 'fs';
 import { debug, setFailed } from '@actions/core';
 
@@ -29,7 +29,8 @@ export async function executeCommand(
   let output = '';
   let error = '';
 
-  const options = {
+  const options: ExecOptions = {
+    cwd: process.env.GITHUB_WORKSPACE,
     listeners: {
       stdout: (data: Buffer) => {
         output += data.toString();

@@ -30500,11 +30500,13 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     const isMain = (0, lib_1.isMainBranch)();
     const eventContext = yield (0, lib_1.getEventContext)();
     (0, core_1.exportVariable)('TURBO_GLOBAL_WARNING_DISABLED', 1);
+    // Get optional override from action input
+    const comparisonRefOverride = (0, core_1.getInput)('comparisonRef');
     // TODO: It doesn't handle workflow_dispatch for main branch at the moment since it doesn't expose
     // github.event.before so we don't know what to compare with.
-    const changedPackages = yield getChangedPackages(isMain && github_1.context.eventName !== 'workflow_dispatch'
+    const changedPackages = yield getChangedPackages(comparisonRefOverride || (isMain && github_1.context.eventName !== 'workflow_dispatch'
         ? eventContext.before
-        : 'origin/main');
+        : 'origin/main'));
     (0, core_1.info)(`Changed projects: ${JSON.stringify(changedPackages)}`);
     (0, core_1.setOutput)('changedProjects', changedPackages);
 });

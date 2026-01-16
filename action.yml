@@ -11,6 +11,10 @@ inputs:
   turboVersion:
     description: Specify turbo version. Default value is 'latest'
     required: false
+  comparisonRef:
+    description: 'Override the comparison ref (e.g., "origin/main"). If not provided, uses default logic.'
+    required: false
+    default: ''
 outputs:
   changedProjects:
     description: List of changed projects.

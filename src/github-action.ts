@@ -15,12 +15,15 @@ export const run = async (): Promise<void> => {
   const eventContext = await getEventContext();
   exportVariable('TURBO_GLOBAL_WARNING_DISABLED', 1);
 
+  // Get optional override from action input
+  const comparisonRefOverride = getInput('comparisonRef');
+
   // TODO: It doesn't handle workflow_dispatch for main branch at the moment since it doesn't expose
   // github.event.before so we don't know what to compare with.
   const changedPackages = await getChangedPackages(
-    isMain && context.eventName !== 'workflow_dispatch'
+    comparisonRefOverride || (isMain && context.eventName !== 'workflow_dispatch'
       ? eventContext.before
-      : 'origin/main',
+      : 'origin/main'),
   );
 
   info(`Changed projects: ${JSON.stringify(changedPackages)}`);
